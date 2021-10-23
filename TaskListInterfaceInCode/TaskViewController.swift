@@ -18,12 +18,19 @@ class TaskViewController: UIViewController {
     }()
     
     private lazy var saveButton: CustomButton = {
-        let button = CustomButton(title: "Save", buttonColor: .blue)
+        let buttonColor = UIColor(
+            red: 21/255,
+            green: 101/255,
+            blue: 192/255,
+            alpha: 194/255
+        )
+        
+        let button = CustomButton(title: "Save", buttonColor: buttonColor)
         return button
     }()
     
     private lazy var cancelButton: CustomButton = {
-        let button = CustomButton(title: "Cancel", buttonColor: .red)
+        let button = CustomButton(title: "Cancel", buttonColor: .orange)
         button.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         return button
     }()
@@ -52,6 +59,22 @@ extension TaskViewController {
             taskTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             taskTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             taskTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+        ])
+        
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            saveButton.topAnchor.constraint(equalTo: taskTextField.bottomAnchor, constant: 40),
+            saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100),
+            saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100)
+        ])
+        
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            cancelButton.topAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: 20),
+            cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100),
+            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100)
         ])
     }
     
