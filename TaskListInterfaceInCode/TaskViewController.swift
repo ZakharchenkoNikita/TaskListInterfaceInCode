@@ -12,6 +12,7 @@ class TaskViewController: UIViewController {
     private lazy var taskTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Add new task"
+        textField.borderStyle = .roundedRect
         return textField
     }()
 
