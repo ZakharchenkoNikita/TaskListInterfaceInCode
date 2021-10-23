@@ -13,9 +13,11 @@ protocol TaskViewControllerDelegate {
 
 class TaskListViewController: UITableViewController, TaskViewControllerDelegate {
     
+    //MARK: Private propetries
     private var taskList: [Task] = []
     private let cellID = "cell"
     
+    //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -28,43 +30,10 @@ class TaskListViewController: UITableViewController, TaskViewControllerDelegate 
         taskList = DataManager.shared.fetchData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        taskList.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        
-        let task = taskList[indexPath.row]
-        var content = cell.defaultContentConfiguration()
-        content.text = task.name
-        cell.contentConfiguration = content
-        
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            DataManager.shared.deleteTask(index: indexPath.row, taskList: taskList)
-            taskList.remove(at: indexPath.row)
-            
-            let cellIndex = IndexPath(row: indexPath.row, section: 0)
-            tableView.deleteRows(at: [cellIndex], with: .automatic)
-        }
-    }
-    
+    //MARK: Methods
     func reloadTable(task: Task) {
         taskList.append(task)
-        let cellIndex = IndexPath(row: self.taskList.count - 1, section: 0)
+        let cellIndex = IndexPath(row: taskList.count - 1, section: 0)
         tableView.insertRows(at: [cellIndex], with: .automatic)
     }
 }
@@ -106,3 +75,37 @@ extension TaskListViewController {
     }
 }
 
+//MARK: TableViewDataSource
+extension TaskListViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        taskList.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        
+        let task = taskList[indexPath.row]
+        var content = cell.defaultContentConfiguration()
+        content.text = task.name
+        cell.contentConfiguration = content
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            DataManager.shared.deleteTask(index: indexPath.row, taskList: taskList)
+            taskList.remove(at: indexPath.row)
+            
+            let cellIndex = IndexPath(row: indexPath.row, section: 0)
+            tableView.deleteRows(at: [cellIndex], with: .automatic)
+        }
+    }
+}
+
+//MARK: TableViewDelegate
+extension TaskListViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
