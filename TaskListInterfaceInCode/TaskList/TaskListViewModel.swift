@@ -13,6 +13,7 @@ protocol TaskListViewModelProtocol {
     func fetchTasks(completion: @escaping() -> Void)
     func getNumberOfRows() -> Int
     func delete(at indexPath: IndexPath)
+    func append(task: Task)
     
     func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol
 }
@@ -32,6 +33,10 @@ class TaskListViewModel: TaskListViewModelProtocol {
     func delete(at indexPath: IndexPath) {
         DataManager.shared.deleteTask(index: indexPath.row, taskList: taskList)
         taskList.remove(at: indexPath.row)
+    }
+    
+    func append(task: Task) {
+        taskList.append(task)
     }
     
     func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol {
