@@ -7,7 +7,11 @@
 
 import UIKit
 
-class TaskListViewController: UITableViewController {
+protocol TaskViewControllerDelegate {
+    func reloadTable(task: Task)
+}
+
+class TaskListViewController: UITableViewController, TaskViewControllerDelegate {
     
     private var taskList: [Task] = []
     private let cellID = "cell"
@@ -22,6 +26,11 @@ class TaskListViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         
         taskList = DataManager.shared.fetchData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,7 +48,29 @@ class TaskListViewController: UITableViewController {
         return cell
     }
     
-    //MARK: Private Metrhods
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            DataManager.shared.deleteTask(index: indexPath.row, taskList: taskList)
+            taskList.remove(at: indexPath.row)
+            
+            let cellIndex = IndexPath(row: indexPath.row, section: 0)
+            tableView.deleteRows(at: [cellIndex], with: .automatic)
+        }
+    }
+    
+    func reloadTable(task: Task) {
+        taskList.append(task)
+        let cellIndex = IndexPath(row: self.taskList.count - 1, section: 0)
+        tableView.insertRows(at: [cellIndex], with: .automatic)
+    }
+}
+
+//MARK: Private Metrhods
+extension TaskListViewController {
     private func setupNavigationBar() {
         title = "Task List"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -70,6 +101,7 @@ class TaskListViewController: UITableViewController {
     
     @objc private func addNewTask() {
         let newTaskVC = TaskViewController()
+        newTaskVC.delegate = self
         present(newTaskVC, animated: true)
     }
 }

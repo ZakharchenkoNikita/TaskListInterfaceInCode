@@ -56,13 +56,14 @@ class DataManager {
         return taskList
     }
     
-    func save(_ taskName: String) {
+    func save(_ taskName: String, completionHandler: (Task) -> Void) {
         guard let entityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else {
             return
         }
         guard let task = NSManagedObject(entity: entityDescription, insertInto: context) as? Task else { return }
         
         task.name = taskName
+        completionHandler(task)
         
         saveContext()
     }

@@ -36,9 +36,12 @@ class TaskViewController: UIViewController {
         return button
     }()
     
+    var delegate: TaskViewControllerDelegate!
+    
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         view.backgroundColor = .white
         setup(subViews: taskTextField, saveButton, cancelButton)
         setupConstraints()
@@ -80,8 +83,10 @@ extension TaskViewController {
     }
     
     @objc private func save() {
-        guard let name = taskTextField.text else { return }
-        DataManager.shared.save(name)
+        guard let name = taskTextField.text, !name.isEmpty else { return }
+        DataManager.shared.save(name) { task in
+            delegate.reloadTable(task: task)
+        }
         dismiss(animated: true)
     }
     
