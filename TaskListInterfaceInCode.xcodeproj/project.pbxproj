@@ -60,17 +60,57 @@
 		118A70C3272402AD00440151 /* TaskListInterfaceInCode */ = {
 			isa = PBXGroup;
 			children = (
-				118A70C4272402AD00440151 /* AppDelegate.swift */,
-				118A70C8272402AD00440151 /* TaskListViewController.swift */,
-				118A70DB27240D4D00440151 /* TaskViewController.swift */,
-				118A70DF2724378000440151 /* DataManager.swift */,
-				118A70DD2724312700440151 /* CustomButton.swift */,
-				118A70D0272402AF00440151 /* Assets.xcassets */,
-				118A70D2272402AF00440151 /* LaunchScreen.storyboard */,
-				118A70D5272402AF00440151 /* Info.plist */,
+				11D99D262724490600CFA593 /* TaskList */,
+				11D99D2A2724499500CFA593 /* NewTask */,
+				11D99D292724498300CFA593 /* Helpers */,
+				11D99D282724497200CFA593 /* Storyboards */,
+				11D99D272724495900CFA593 /* Supporting files */,
 				118A70CD272402AD00440151 /* TaskListInterfaceInCode.xcdatamodeld */,
+				118A70DD2724312700440151 /* CustomButton.swift */,
 			);
 			path = TaskListInterfaceInCode;
+			sourceTree = "<group>";
+		};
+		11D99D262724490600CFA593 /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				118A70C8272402AD00440151 /* TaskListViewController.swift */,
+			);
+			path = TaskList;
+			sourceTree = "<group>";
+		};
+		11D99D272724495900CFA593 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				118A70C4272402AD00440151 /* AppDelegate.swift */,
+				118A70D0272402AF00440151 /* Assets.xcassets */,
+				118A70D5272402AF00440151 /* Info.plist */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		11D99D282724497200CFA593 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				118A70D2272402AF00440151 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		11D99D292724498300CFA593 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				118A70DF2724378000440151 /* DataManager.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		11D99D2A2724499500CFA593 /* NewTask */ = {
+			isa = PBXGroup;
+			children = (
+				118A70DB27240D4D00440151 /* TaskViewController.swift */,
+			);
+			path = NewTask;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,7 +331,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9CHP9M644H;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TaskListInterfaceInCode/Info.plist;
+				INFOPLIST_FILE = "TaskListInterfaceInCode/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -319,7 +359,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9CHP9M644H;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TaskListInterfaceInCode/Info.plist;
+				INFOPLIST_FILE = "TaskListInterfaceInCode/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
