@@ -14,27 +14,34 @@ protocol TaskViewControllerDelegate {
 class TaskListViewController: UITableViewController, TaskViewControllerDelegate {
     
     //MARK: Private propetries
-    private var taskList: [Task] = []
     private let cellID = "cell"
+    
+    private var viewModel: TaskListViewModelProtocol! {
+        didSet {
+            viewModel.fetchTasks {
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = TaskListViewModel()
+        
         view.backgroundColor = .white
         setupNavigationBar()
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-        
-        taskList = DataManager.shared.fetchData()
+        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: cellID)
     }
     
     //MARK: Methods
     func reloadTable(task: Task) {
-        taskList.append(task)
-        let cellIndex = IndexPath(row: taskList.count - 1, section: 0)
-        tableView.insertRows(at: [cellIndex], with: .automatic)
+//        viewModel.taskList.append(task)
+//        let cellIndex = IndexPath(row: viewModel.taskList.count - 1, section: 0)
+//        tableView.insertRows(at: [cellIndex], with: .automatic)
     }
 }
 
@@ -78,24 +85,20 @@ extension TaskListViewController {
 //MARK: TableViewDataSource
 extension TaskListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        taskList.count
+        viewModel.getNumberOfRows()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        
-        let task = taskList[indexPath.row]
-        var content = cell.defaultContentConfiguration()
-        content.text = task.name
-        cell.contentConfiguration = content
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! TaskTableViewCell
+        let task = viewModel.taskList[indexPath.row]
+        cell.configure(with: task)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            DataManager.shared.deleteTask(index: indexPath.row, taskList: taskList)
-            taskList.remove(at: indexPath.row)
+            DataManager.shared.deleteTask(index: indexPath.row, taskList: viewModel.taskList)
+            viewModel.taskList.remove(at: indexPath.row)
             
             let cellIndex = IndexPath(row: indexPath.row, section: 0)
             tableView.deleteRows(at: [cellIndex], with: .automatic)
