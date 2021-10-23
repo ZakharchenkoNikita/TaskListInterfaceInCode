@@ -13,6 +13,9 @@ class TaskListViewController: UITableViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupNavigationBar()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     private func setupNavigationBar() {

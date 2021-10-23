@@ -14,7 +14,7 @@ class DataManager {
 
     private var persistentContainer: NSPersistentContainer = {
 
-        let container = NSPersistentContainer(name: "CoreDataDemo")
+        let container = NSPersistentContainer(name: "TaskListInterfaceInCode")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
  
@@ -56,15 +56,14 @@ class DataManager {
         return taskList
     }
     
-    func save(_ taskName: String, completionHandler: (Task) -> Void) {
+    func save(_ taskName: String) {
         guard let entityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else {
             return
         }
         guard let task = NSManagedObject(entity: entityDescription, insertInto: context) as? Task else { return }
         
         task.name = taskName
-        completionHandler(task)
-
+        
         saveContext()
     }
     

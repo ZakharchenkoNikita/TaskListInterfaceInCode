@@ -26,6 +26,7 @@ class TaskViewController: UIViewController {
         )
         
         let button = CustomButton(title: "Save", buttonColor: buttonColor)
+        button.addTarget(self, action: #selector(save), for: .touchUpInside)
         return button
     }()
     
@@ -76,6 +77,12 @@ extension TaskViewController {
             cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100),
             cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100)
         ])
+    }
+    
+    @objc private func save() {
+        guard let name = taskTextField.text else { return }
+        DataManager.shared.save(name)
+        dismiss(animated: true)
     }
     
     @objc private func cancel() {
