@@ -40,7 +40,7 @@ class TaskListViewController: UITableViewController, TaskViewControllerDelegate 
     //MARK: Methods
     func reloadTable(task: Task) {
         viewModel.append(task: task)
-        let cellIndex = IndexPath(row: viewModel.taskList.count - 1, section: 0)
+        let cellIndex = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [cellIndex], with: .automatic)
     }
 }

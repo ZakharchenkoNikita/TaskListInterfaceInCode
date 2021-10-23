@@ -36,7 +36,7 @@ class TaskListViewModel: TaskListViewModelProtocol {
     }
     
     func append(task: Task) {
-        taskList.append(task)
+        taskList.insert(task, at: 0)
     }
     
     func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol {

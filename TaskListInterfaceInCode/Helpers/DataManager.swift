@@ -45,6 +45,7 @@ class DataManager {
     
     func fetchData() -> [Task] {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         var taskList: [Task] = []
         
         do {
@@ -63,6 +64,7 @@ class DataManager {
         guard let task = NSManagedObject(entity: entityDescription, insertInto: context) as? Task else { return }
         
         task.name = taskName
+        task.date = Date()
         completionHandler(task)
         
         saveContext()
