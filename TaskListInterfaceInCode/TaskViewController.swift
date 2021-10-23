@@ -7,6 +7,27 @@
 
 import UIKit
 
+class CustomButton: UIButton {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    init(title: String, buttonColor: UIColor) {
+        super.init(frame: .zero)
+        
+        backgroundColor = buttonColor
+        setTitle(title, for: .normal)
+        titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        setTitleColor(.white, for: .normal)
+        layer.cornerRadius = 5
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class TaskViewController: UIViewController {
     
     private lazy var taskTextField: UITextField = {
@@ -15,11 +36,21 @@ class TaskViewController: UIViewController {
         textField.borderStyle = .roundedRect
         return textField
     }()
-
+    
+    private lazy var saveButton: CustomButton = {
+        let button = CustomButton(title: "Save", buttonColor: .blue)
+        return button
+    }()
+    
+    private lazy var cancelButton: CustomButton = {
+        let button = CustomButton(title: "Cancel", buttonColor: .red)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setup(subViews: taskTextField)
+        setup(subViews: taskTextField, saveButton, cancelButton)
         setupConstraints()
     }
     
