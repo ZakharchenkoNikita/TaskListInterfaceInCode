@@ -8,18 +8,18 @@
 import Foundation
 
 protocol TaskListViewModelProtocol {
-    var taskList: [Task] { get set }
+    var taskList: [TaskCategory] { get set }
     
     func fetchTasks(completion: @escaping() -> Void)
     func getNumberOfRows() -> Int
     func delete(at indexPath: IndexPath)
-    func append(task: Task)
+    func append(task: TaskCategory)
     
     func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol
 }
 
 class TaskListViewModel: TaskListViewModelProtocol {
-    var taskList: [Task] = []
+    var taskList: [TaskCategory] = []
     
     func fetchTasks(completion: @escaping () -> Void) {
         taskList = DataManager.shared.fetchData()
@@ -35,7 +35,7 @@ class TaskListViewModel: TaskListViewModelProtocol {
         taskList.remove(at: indexPath.row)
     }
     
-    func append(task: Task) {
+    func append(task: TaskCategory) {
         taskList.insert(task, at: 0)
     }
     

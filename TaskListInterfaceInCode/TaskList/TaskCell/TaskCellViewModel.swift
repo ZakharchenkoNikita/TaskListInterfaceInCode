@@ -10,7 +10,7 @@ import Foundation
 protocol TaskCellViewModelProtocol {
     var name: String { get }
     
-    init(task: Task)
+    init(task: TaskCategory)
 }
 
 class TaskCellViewModel: TaskCellViewModelProtocol {
@@ -18,9 +18,9 @@ class TaskCellViewModel: TaskCellViewModelProtocol {
         task.name ?? ""
     }
     
-    private let task: Task
+    private let task: TaskCategory
     
-    required init(task: Task) {
+    required init(task: TaskCategory) {
         self.task = task
     }
 }

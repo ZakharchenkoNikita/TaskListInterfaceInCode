@@ -43,10 +43,10 @@ class DataManager {
         }
     }
     
-    func fetchData() -> [Task] {
-        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+    func fetchData() -> [TaskCategory] {
+        let fetchRequest: NSFetchRequest<TaskCategory> = TaskCategory.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        var taskList: [Task] = []
+        var taskList: [TaskCategory] = []
         
         do {
             taskList = try context.fetch(fetchRequest)
@@ -57,11 +57,11 @@ class DataManager {
         return taskList
     }
     
-    func save(_ taskName: String, completionHandler: (Task) -> Void) {
-        guard let entityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else {
+    func save(_ taskName: String, completionHandler: (TaskCategory) -> Void) {
+        guard let entityDescription = NSEntityDescription.entity(forEntityName: "TaskCategory", in: context) else {
             return
         }
-        guard let task = NSManagedObject(entity: entityDescription, insertInto: context) as? Task else { return }
+        guard let task = NSManagedObject(entity: entityDescription, insertInto: context) as? TaskCategory else { return }
         
         task.name = taskName
         task.date = Date()
@@ -70,12 +70,12 @@ class DataManager {
         saveContext()
     }
     
-    func editingTask(taskName: String, task: Task) {
+    func editingTask(taskName: String, task: TaskCategory) {
         task.name = taskName
         saveContext()
     }
     
-    func deleteTask(index: Int, taskList: [Task]) {
+    func deleteTask(index: Int, taskList: [TaskCategory]) {
         context.delete(taskList[index] as NSManagedObject)
         saveContext()
     }

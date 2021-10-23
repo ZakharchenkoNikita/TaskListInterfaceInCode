@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1119BE17272487EA0068514A /* TaskCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119BE16272487EA0068514A /* TaskCategoryTableViewController.swift */; };
+		1119BE19272487FC0068514A /* TaskCategoryCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119BE18272487FC0068514A /* TaskCategoryCellTableViewCell.swift */; };
+		1119BE1C2724889C0068514A /* TaskCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119BE1B2724889C0068514A /* TaskCategoryViewModel.swift */; };
 		118A70C5272402AD00440151 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118A70C4272402AD00440151 /* AppDelegate.swift */; };
 		118A70C9272402AD00440151 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118A70C8272402AD00440151 /* TaskListViewController.swift */; };
 		118A70CF272402AD00440151 /* TaskListInterfaceInCode.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 118A70CD272402AD00440151 /* TaskListInterfaceInCode.xcdatamodeld */; };
@@ -15,12 +18,16 @@
 		118A70DC27240D4D00440151 /* NewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118A70DB27240D4D00440151 /* NewTaskViewController.swift */; };
 		118A70DE2724312700440151 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118A70DD2724312700440151 /* CustomButton.swift */; };
 		118A70E02724378000440151 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118A70DF2724378000440151 /* DataManager.swift */; };
+		119553ED27248B3D001D7183 /* TaskCategoryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119553EC27248B3D001D7183 /* TaskCategoryCellViewModel.swift */; };
 		11D99D2C27244A3200CFA593 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D99D2B27244A3200CFA593 /* TaskListViewModel.swift */; };
 		11D99D2F2724521500CFA593 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D99D2E2724521500CFA593 /* TaskTableViewCell.swift */; };
 		11D99D312724523100CFA593 /* TaskCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D99D302724523100CFA593 /* TaskCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1119BE16272487EA0068514A /* TaskCategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCategoryTableViewController.swift; sourceTree = "<group>"; };
+		1119BE18272487FC0068514A /* TaskCategoryCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCategoryCellTableViewCell.swift; sourceTree = "<group>"; };
+		1119BE1B2724889C0068514A /* TaskCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCategoryViewModel.swift; sourceTree = "<group>"; };
 		118A70C1272402AD00440151 /* TaskListInterfaceInCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskListInterfaceInCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		118A70C4272402AD00440151 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		118A70C8272402AD00440151 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
@@ -31,6 +38,7 @@
 		118A70DB27240D4D00440151 /* NewTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewController.swift; sourceTree = "<group>"; };
 		118A70DD2724312700440151 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		118A70DF2724378000440151 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		119553EC27248B3D001D7183 /* TaskCategoryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCategoryCellViewModel.swift; sourceTree = "<group>"; };
 		11D99D2B27244A3200CFA593 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 		11D99D2E2724521500CFA593 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		11D99D302724523100CFA593 /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
@@ -47,6 +55,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1119BE14272487A30068514A /* TaskCategory */ = {
+			isa = PBXGroup;
+			children = (
+				1119BE1A272488750068514A /* TaskCategoryCell */,
+				1119BE16272487EA0068514A /* TaskCategoryTableViewController.swift */,
+				1119BE1B2724889C0068514A /* TaskCategoryViewModel.swift */,
+			);
+			path = TaskCategory;
+			sourceTree = "<group>";
+		};
+		1119BE1A272488750068514A /* TaskCategoryCell */ = {
+			isa = PBXGroup;
+			children = (
+				1119BE18272487FC0068514A /* TaskCategoryCellTableViewCell.swift */,
+				119553EC27248B3D001D7183 /* TaskCategoryCellViewModel.swift */,
+			);
+			path = TaskCategoryCell;
+			sourceTree = "<group>";
+		};
 		118A70B8272402AD00440151 = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +93,7 @@
 		118A70C3272402AD00440151 /* TaskListInterfaceInCode */ = {
 			isa = PBXGroup;
 			children = (
+				1119BE14272487A30068514A /* TaskCategory */,
 				11D99D262724490600CFA593 /* TaskList */,
 				11D99D2A2724499500CFA593 /* NewTask */,
 				11D99D292724498300CFA593 /* Helpers */,
@@ -202,10 +230,14 @@
 			files = (
 				11D99D2F2724521500CFA593 /* TaskTableViewCell.swift in Sources */,
 				11D99D2C27244A3200CFA593 /* TaskListViewModel.swift in Sources */,
+				1119BE19272487FC0068514A /* TaskCategoryCellTableViewCell.swift in Sources */,
+				1119BE17272487EA0068514A /* TaskCategoryTableViewController.swift in Sources */,
 				118A70C9272402AD00440151 /* TaskListViewController.swift in Sources */,
 				118A70E02724378000440151 /* DataManager.swift in Sources */,
 				118A70DC27240D4D00440151 /* NewTaskViewController.swift in Sources */,
+				1119BE1C2724889C0068514A /* TaskCategoryViewModel.swift in Sources */,
 				118A70C5272402AD00440151 /* AppDelegate.swift in Sources */,
+				119553ED27248B3D001D7183 /* TaskCategoryCellViewModel.swift in Sources */,
 				11D99D312724523100CFA593 /* TaskCellViewModel.swift in Sources */,
 				118A70CF272402AD00440151 /* TaskListInterfaceInCode.xcdatamodeld in Sources */,
 				118A70DE2724312700440151 /* CustomButton.swift in Sources */,

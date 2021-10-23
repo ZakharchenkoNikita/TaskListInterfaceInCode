@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskViewControllerDelegate {
-    func reloadTable(task: Task)
+    func reloadTable(task: TaskCategory)
 }
 
 class TaskListViewController: UITableViewController, TaskViewControllerDelegate {
@@ -38,7 +38,7 @@ class TaskListViewController: UITableViewController, TaskViewControllerDelegate 
     }
     
     //MARK: Methods
-    func reloadTable(task: Task) {
+    func reloadTable(task: TaskCategory) {
         viewModel.append(task: task)
         let cellIndex = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [cellIndex], with: .automatic)
