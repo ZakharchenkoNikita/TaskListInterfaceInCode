@@ -1,5 +1,5 @@
 //
-//  TaskViewController.swift
+//  NewTaskViewController.swift
 //  TaskListInterfaceInCode
 //
 //  Created by Nikita on 23.10.21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskViewController: UIViewController {
+class NewTaskViewController: UIViewController {
     
     //MARK: Private propetries
     private lazy var taskTextField: UITextField = {
@@ -49,7 +49,7 @@ class TaskViewController: UIViewController {
 }
 
 //MARK: Private Metrhods
-extension TaskViewController {
+extension NewTaskViewController {
     private func setup(subViews: UIView...) {
         subViews.forEach { subView in
             view.addSubview(subView)

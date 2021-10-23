@@ -76,7 +76,7 @@ extension TaskListViewController {
     }
     
     @objc private func addNewTask() {
-        let newTaskVC = TaskViewController()
+        let newTaskVC = NewTaskViewController()
         newTaskVC.delegate = self
         present(newTaskVC, animated: true)
     }
