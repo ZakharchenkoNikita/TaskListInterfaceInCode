@@ -8,9 +8,12 @@
 import UIKit
 
 class TaskTableViewCell: UITableViewCell {
-    func configure(with task: Task) {
-        var content = defaultContentConfiguration()
-        content.text = task.name
-        contentConfiguration = content
+    var viewModel: TaskCellViewModelProtocol! {
+        didSet {
+            var content = defaultContentConfiguration()
+            content.text = viewModel.name
+            contentConfiguration = content
+        }
     }
+
 }

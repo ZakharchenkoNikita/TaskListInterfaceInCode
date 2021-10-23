@@ -12,6 +12,7 @@ protocol TaskListViewModelProtocol {
     
     func fetchTasks(completion: @escaping() -> Void)
     func getNumberOfRows() -> Int
+    func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol
 }
 
 class TaskListViewModel: TaskListViewModelProtocol {
@@ -24,5 +25,10 @@ class TaskListViewModel: TaskListViewModelProtocol {
     
     func getNumberOfRows() -> Int {
         taskList.count
+    }
+    
+    func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol {
+        let task = taskList[indexPath.row]
+        return TaskCellViewModel(task: task)
     }
 }

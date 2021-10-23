@@ -90,8 +90,7 @@ extension TaskListViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! TaskTableViewCell
-        let task = viewModel.taskList[indexPath.row]
-        cell.configure(with: task)
+        cell.viewModel = viewModel.getCellViewModel(at: indexPath)
         return cell
     }
     
