@@ -20,11 +20,22 @@ class TaskViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setup(subViews: taskTextField)
+        setupConstraints()
     }
     
     private func setup(subViews: UIView...) {
         subViews.forEach { subView in
             view.addSubview(subView)
         }
+    }
+    
+    private func setupConstraints() {
+        taskTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            taskTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            taskTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            taskTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+        ])
     }
 }
