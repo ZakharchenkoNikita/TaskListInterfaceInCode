@@ -38,9 +38,9 @@ class TaskListViewController: UITableViewController, TaskViewControllerDelegate 
     
     //MARK: Methods
     func reloadTable(task: Task) {
-        viewModel.taskList.append(task)
-//        let cellIndex = IndexPath(row: 0, section: 0)
-//        tableView.insertRows(at: [cellIndex], with: .automatic)
+        viewModel.append(task: task)
+        let cellIndex = IndexPath(row: 0, section: 0)
+        tableView.insertRows(at: [cellIndex], with: .automatic)
     }
 }
 

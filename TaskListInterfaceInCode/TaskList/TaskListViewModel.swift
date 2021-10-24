@@ -16,7 +16,7 @@ protocol TaskListViewModelProtocol {
     func fetchTasks(completion: @escaping() -> Void)
     func getNumberOfRows() -> Int
 //    func delete(at indexPath: IndexPath)
-//    func append(task: Task)
+    func append(task: Task)
     
     func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol
     func showNewTaskViewModel() -> NewTaskViewModelProtocol?
@@ -46,10 +46,10 @@ class TaskListViewModel: TaskListViewModelProtocol {
 //        taskList.remove(at: indexPath.row)
 //    }
 //    
-//    func append(task: TaskCategory) {
-//        taskList.insert(task, at: 0)
-//    }
-//    
+    func append(task: Task) {
+        taskList.insert(task, at: 0)
+    }
+
     func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol {
         let task = taskList[indexPath.row]
         return TaskCellViewModel(task: task)
