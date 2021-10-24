@@ -9,11 +9,11 @@ import UIKit
 
 class TasksViewController: UIViewController {
 
-    var task: [Task] = []
+    var task: [TaskCategory] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        task = DataManager.shared.fetchTaskList()
+        task = DataManager.shared.fetchTaskCategories()
         print(task.count)
     }
 }

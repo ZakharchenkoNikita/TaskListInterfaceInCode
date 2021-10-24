@@ -43,7 +43,7 @@ class TaskListViewModel: TaskListViewModelProtocol {
     
     func delete(at indexPath: IndexPath) {
         let task = taskList[indexPath.row]
-        DataManager.shared.deleteTaskCategory(taskCategoty: taskCategory, task: task)
+        DataManager.shared.deleteTask(task: task)
         taskList.remove(at: indexPath.row)
     }
     

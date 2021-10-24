@@ -108,8 +108,8 @@ extension DataManager {
         saveContext()
     }
     
-    func deleteTaskCategory(taskCategoty: TaskCategory, task: Task) {
-        taskCategoty.removeFromTask(task)
+    func deleteTask(task: Task) {
+        context.delete(task as NSManagedObject)
         saveContext()
     }
 }
