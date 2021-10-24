@@ -42,11 +42,49 @@ class DataManager {
             }
         }
     }
-    
-    func fetchData() -> [TaskCategory] {
+}
+
+//MARK: Work with TaskCategory
+extension DataManager {
+    func fetchTaskCategories() -> [TaskCategory] {
         let fetchRequest: NSFetchRequest<TaskCategory> = TaskCategory.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        var taskList: [TaskCategory] = []
+        var taskCategories: [TaskCategory] = []
+        
+        do {
+            taskCategories = try context.fetch(fetchRequest)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        return taskCategories
+    }
+    
+    func save(_ taskCategoryName: String, completionHandler: (TaskCategory) -> Void) {
+        guard let entityDescription = NSEntityDescription.entity(forEntityName: "TaskCategory", in: context) else {
+            return
+        }
+        guard let taskCategory = NSManagedObject(entity: entityDescription, insertInto: context) as? TaskCategory else { return }
+        
+        taskCategory.name = taskCategoryName
+        taskCategory.date = Date()
+        completionHandler(taskCategory)
+        
+        saveContext()
+    }
+
+    func deleteTaskCategory(index: Int, taskCategories: [TaskCategory]) {
+        context.delete(taskCategories[index] as NSManagedObject)
+        saveContext()
+    }
+}
+
+extension DataManager {
+    func fetchTaskList() -> [Task] {
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        fetchRequest.relationshipKeyPathsForPrefetching = ["taskCategory"]
+        var taskList: [Task] = []
         
         do {
             taskList = try context.fetch(fetchRequest)
@@ -57,26 +95,16 @@ class DataManager {
         return taskList
     }
     
-    func save(_ taskName: String, completionHandler: (TaskCategory) -> Void) {
-        guard let entityDescription = NSEntityDescription.entity(forEntityName: "TaskCategory", in: context) else {
-            return
-        }
-        guard let task = NSManagedObject(entity: entityDescription, insertInto: context) as? TaskCategory else { return }
+    func save(_ taskName: String, taskCategory: TaskCategory, completion: (Task) -> Void) {
+        guard let entityDesctription = NSEntityDescription.entity(forEntityName: "Task", in: context) else { return }
+        guard let task = NSManagedObject(entity: entityDesctription, insertInto: context) as? Task else { return }
         
         task.name = taskName
-        task.date = Date()
-        completionHandler(task)
+        task.taskCategory = taskCategory
         
-        saveContext()
-    }
-    
-    func editingTask(taskName: String, task: TaskCategory) {
-        task.name = taskName
-        saveContext()
-    }
-    
-    func deleteTask(index: Int, taskList: [TaskCategory]) {
-        context.delete(taskList[index] as NSManagedObject)
+        taskCategory.addToTask(task)
+        completion(task)
+        
         saveContext()
     }
 }

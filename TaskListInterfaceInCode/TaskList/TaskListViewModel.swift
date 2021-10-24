@@ -8,21 +8,32 @@
 import Foundation
 
 protocol TaskListViewModelProtocol {
-    var taskList: [TaskCategory] { get set }
+    var taskCategory: TaskCategory { get }
+    var taskList: [Task] { get set }
+    
+    init(taskCategory: TaskCategory)
     
     func fetchTasks(completion: @escaping() -> Void)
     func getNumberOfRows() -> Int
-    func delete(at indexPath: IndexPath)
-    func append(task: TaskCategory)
+//    func delete(at indexPath: IndexPath)
+//    func append(task: Task)
     
     func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol
+    func showNewTaskViewModel() -> NewTaskViewModelProtocol?
 }
 
 class TaskListViewModel: TaskListViewModelProtocol {
-    var taskList: [TaskCategory] = []
+    
+    var taskCategory: TaskCategory
+    var taskList: [Task] = []
+    
+    required init(taskCategory: TaskCategory) {
+        self.taskCategory = taskCategory
+    }
     
     func fetchTasks(completion: @escaping () -> Void) {
-        taskList = DataManager.shared.fetchData()
+        taskList = taskCategory.task?.allObjects as! [Task]
+//        taskList = DataManager.shared.fetchTaskList()
         completion()
     }
     
@@ -30,17 +41,21 @@ class TaskListViewModel: TaskListViewModelProtocol {
         taskList.count
     }
     
-    func delete(at indexPath: IndexPath) {
-        DataManager.shared.deleteTask(index: indexPath.row, taskList: taskList)
-        taskList.remove(at: indexPath.row)
-    }
-    
-    func append(task: TaskCategory) {
-        taskList.insert(task, at: 0)
-    }
-    
+//    func delete(at indexPath: IndexPath) {
+//        DataManager.shared.deleteTaskCategory(index: indexPath.row, taskCategories: taskList)
+//        taskList.remove(at: indexPath.row)
+//    }
+//    
+//    func append(task: TaskCategory) {
+//        taskList.insert(task, at: 0)
+//    }
+//    
     func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol {
         let task = taskList[indexPath.row]
         return TaskCellViewModel(task: task)
+    }
+    
+    func showNewTaskViewModel() -> NewTaskViewModelProtocol? {
+        NewTaskViewModel(taskCategory: taskCategory)
     }
 }

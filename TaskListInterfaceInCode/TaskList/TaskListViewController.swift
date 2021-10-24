@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskViewControllerDelegate {
-    func reloadTable(task: TaskCategory)
+    func reloadTable(task: Task)
 }
 
 class TaskListViewController: UITableViewController, TaskViewControllerDelegate {
@@ -16,7 +16,7 @@ class TaskListViewController: UITableViewController, TaskViewControllerDelegate 
     //MARK: Private propetries
     private let cellID = "cell"
     
-    private var viewModel: TaskListViewModelProtocol! {
+    var viewModel: TaskListViewModelProtocol! {
         didSet {
             viewModel.fetchTasks {
                 self.tableView.reloadData()
@@ -27,9 +27,8 @@ class TaskListViewController: UITableViewController, TaskViewControllerDelegate 
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = TaskListViewModel()
-        
         view.backgroundColor = .white
+        
         setupNavigationBar()
         
         tableView.delegate = self
@@ -38,10 +37,10 @@ class TaskListViewController: UITableViewController, TaskViewControllerDelegate 
     }
     
     //MARK: Methods
-    func reloadTable(task: TaskCategory) {
-        viewModel.append(task: task)
-        let cellIndex = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [cellIndex], with: .automatic)
+    func reloadTable(task: Task) {
+        viewModel.taskList.append(task)
+//        let cellIndex = IndexPath(row: 0, section: 0)
+//        tableView.insertRows(at: [cellIndex], with: .automatic)
     }
 }
 
@@ -78,6 +77,7 @@ extension TaskListViewController {
     @objc private func addNewTask() {
         let newTaskVC = NewTaskViewController()
         newTaskVC.delegate = self
+        newTaskVC.viewModel = viewModel.showNewTaskViewModel()
         present(newTaskVC, animated: true)
     }
 }
@@ -96,7 +96,7 @@ extension TaskListViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            viewModel.delete(at: indexPath)
+//            viewModel.delete(at: indexPath)
             let cellIndex = IndexPath(row: indexPath.row, section: 0)
             tableView.deleteRows(at: [cellIndex], with: .automatic)
         }

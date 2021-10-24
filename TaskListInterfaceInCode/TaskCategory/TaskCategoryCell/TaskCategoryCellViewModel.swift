@@ -9,6 +9,7 @@ import Foundation
 
 protocol TaskCategoryCellViewModelProtocol {
     var name: String { get }
+    var tasks: String { get }
     
     init(taskCategory: TaskCategory)
 }
@@ -16,6 +17,10 @@ protocol TaskCategoryCellViewModelProtocol {
 class TaskCategoryCellViewModel: TaskCategoryCellViewModelProtocol {
     var name: String {
         taskCategory.name ?? ""
+    }
+    
+    var tasks: String {
+        "\(taskCategory.task?.count ?? 0)"
     }
     
     private let taskCategory: TaskCategory

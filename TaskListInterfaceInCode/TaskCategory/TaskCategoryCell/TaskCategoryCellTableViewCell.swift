@@ -12,6 +12,7 @@ class TaskCategoryCellTableViewCell: UITableViewCell {
         didSet {
             var content = defaultContentConfiguration()
             content.text = viewModel.name
+            content.secondaryText = viewModel.tasks
             contentConfiguration = content
         }
     }
