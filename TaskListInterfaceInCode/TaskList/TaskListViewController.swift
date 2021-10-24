@@ -47,31 +47,13 @@ class TaskListViewController: UITableViewController, TaskViewControllerDelegate 
 //MARK: Private Metrhods
 extension TaskListViewController {
     private func setupNavigationBar() {
-        title = "Task List"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        let navBarAppearence = UINavigationBarAppearance()
-        
-        navBarAppearence.configureWithOpaqueBackground()
-        navBarAppearence.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navBarAppearence.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        navBarAppearence.backgroundColor = UIColor(
-            red: 21/255,
-            green: 101/255,
-            blue: 192/255,
-            alpha: 194/255
-        )
-        
-        navigationController?.navigationBar.standardAppearance = navBarAppearence
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearence
-        
+        title = viewModel.taskCategory.name
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
             action: #selector(addNewTask)
         )
-        navigationController?.navigationBar.tintColor = .white
     }
     
     @objc private func addNewTask() {
@@ -96,7 +78,7 @@ extension TaskListViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-//            viewModel.delete(at: indexPath)
+            viewModel.delete(at: indexPath)
             let cellIndex = IndexPath(row: indexPath.row, section: 0)
             tableView.deleteRows(at: [cellIndex], with: .automatic)
         }

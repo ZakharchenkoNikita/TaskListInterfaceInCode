@@ -31,29 +31,9 @@ class TaskCategoryTableViewController: UITableViewController {
         setupNavigation()
     }
     
-    // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.getNumberOfRows()
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! TaskCategoryCellTableViewCell
-        cell.viewModel = viewModel.getCellViewModel(at: indexPath)
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        guard let viewModel = viewModel else { return }
-        
-        viewModel.selectRow(atIndexPath: indexPath)
-        
-        let taskListVC = TaskListViewController()
-        let navigationController = UINavigationController(rootViewController: taskListVC)
-        navigationController.modalPresentationStyle = .automatic
-        taskListVC.viewModel = viewModel.viewModelForSelectedRow()
-        present(navigationController, animated: true)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     private func setupNavigation() {
@@ -90,5 +70,41 @@ class TaskCategoryTableViewController: UITableViewController {
             viewModel.taskCategories.append(taskCategory)
         }
         tableView.reloadData()
+    }
+}
+
+// MARK: - Table view data source
+extension TaskCategoryTableViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.getNumberOfRows()
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! TaskCategoryCellTableViewCell
+        cell.viewModel = viewModel.getCellViewModel(at: indexPath)
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel.delete(at: indexPath)
+            let cellIndex = IndexPath(row: indexPath.row, section: 0)
+            tableView.deleteRows(at: [cellIndex], with: .automatic)
+        }
+    }
+}
+
+//MARK: TableViewDelegate
+extension TaskCategoryTableViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let viewModel = viewModel else { return }
+        
+        viewModel.selectRow(atIndexPath: indexPath)
+        
+        let taskListVC = TaskListViewController()
+        taskListVC.viewModel = viewModel.viewModelForSelectedRow()
+        navigationController?.pushViewController(taskListVC, animated: true)
     }
 }

@@ -13,6 +13,8 @@ protocol TaskCategoryViewModelProtocol {
     func fetchTaskCategories(completion: @escaping() -> Void)
     func getNumberOfRows() -> Int
     
+    func delete(at indexPath: IndexPath)
+    
     func getCellViewModel(at indexPath: IndexPath) -> TaskCategoryCellViewModelProtocol
     func viewModelForSelectedRow() -> TaskListViewModelProtocol?
     func selectRow(atIndexPath indexPath: IndexPath)
@@ -30,6 +32,11 @@ class TaskCategoryViewModel: TaskCategoryViewModelProtocol {
     
     func getNumberOfRows() -> Int {
         taskCategories.count
+    }
+    
+    func delete(at indexPath: IndexPath) {
+        DataManager.shared.deleteTaskCategory(taskCategory: taskCategories[indexPath.row])
+        taskCategories.remove(at: indexPath.row)
     }
     
     func getCellViewModel(at indexPath: IndexPath) -> TaskCategoryCellViewModelProtocol {

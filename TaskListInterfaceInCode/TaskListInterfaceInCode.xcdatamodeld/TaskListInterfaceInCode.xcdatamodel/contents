@@ -8,10 +8,10 @@
     <entity name="TaskCategory" representedClassName="TaskCategory" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="task" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="taskCategory" inverseEntity="Task"/>
+        <relationship name="task" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Task" inverseName="taskCategory" inverseEntity="Task"/>
     </entity>
     <elements>
-        <element name="TaskCategory" positionX="-63" positionY="-18" width="128" height="74"/>
         <element name="Task" positionX="-63" positionY="0" width="128" height="74"/>
+        <element name="TaskCategory" positionX="-63" positionY="-18" width="128" height="74"/>
     </elements>
 </model>
