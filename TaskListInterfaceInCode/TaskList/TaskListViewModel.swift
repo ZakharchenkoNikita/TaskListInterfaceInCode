@@ -14,9 +14,11 @@ protocol TaskListViewModelProtocol {
     init(taskCategory: TaskCategory)
     
     func fetchTasks(completion: @escaping() -> Void)
-    func getNumberOfRows() -> Int
+    func getNumberOfRowsForCompleted() -> Int
+    func getNumberOfRowsForUncompleted() -> Int
     func delete(at indexPath: IndexPath)
     func append(task: Task)
+    func complete(at indexPath: IndexPath)
     
     func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol
     func showNewTaskViewModel() -> NewTaskViewModelProtocol?
@@ -33,12 +35,17 @@ class TaskListViewModel: TaskListViewModelProtocol {
     
     func fetchTasks(completion: @escaping () -> Void) {
         taskList = taskCategory.task?.allObjects as! [Task]
-//        taskList = DataManager.shared.fetchTaskList()
         completion()
     }
     
-    func getNumberOfRows() -> Int {
-        taskList.count
+    func getNumberOfRowsForCompleted() -> Int {
+        let list = taskList.filter( { $0.isDone == true } )
+        return list.count
+    }
+    
+    func getNumberOfRowsForUncompleted() -> Int {
+        let list = taskList.filter( { $0.isDone == false } )
+        return list.count
     }
     
     func delete(at indexPath: IndexPath) {
@@ -49,6 +56,11 @@ class TaskListViewModel: TaskListViewModelProtocol {
     
     func append(task: Task) {
         taskList.insert(task, at: 0)
+    }
+    
+    func complete(at indexPath: IndexPath) {
+        let task = taskList[indexPath.row]
+        DataManager.shared.completeTask(task: task)
     }
 
     func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol {

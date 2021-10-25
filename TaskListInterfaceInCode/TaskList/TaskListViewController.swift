@@ -66,8 +66,17 @@ extension TaskListViewController {
 
 //MARK: TableViewDataSource
 extension TaskListViewController {
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        section == 0 ? "Uncompleted" : "Completed"
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.getNumberOfRows()
+        section == 0 ? viewModel.getNumberOfRowsForUncompleted() : viewModel.getNumberOfRowsForCompleted()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,5 +98,7 @@ extension TaskListViewController {
 extension TaskListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        viewModel.complete(at: indexPath)
+        tableView.reloadData()
     }
 }

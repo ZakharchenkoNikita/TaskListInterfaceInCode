@@ -80,36 +80,43 @@ extension DataManager {
 }
 
 extension DataManager {
-    func fetchTaskList() -> [Task] {
-        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        fetchRequest.relationshipKeyPathsForPrefetching = ["taskCategory"]
-        var taskList: [Task] = []
-        
-        do {
-            taskList = try context.fetch(fetchRequest)
-        } catch let error {
-            print(error.localizedDescription)
-        }
-        
-        return taskList
-    }
-    
+//    func fetchTaskList() -> [Task] {
+//        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+//        fetchRequest.relationshipKeyPathsForPrefetching = ["taskCategory"]
+//        var taskList: [Task] = []
+//
+//        do {
+//            taskList = try context.fetch(fetchRequest)
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
+//
+//        return taskList
+//    }
+//
     func save(_ taskName: String, taskCategory: TaskCategory, completion: (Task) -> Void) {
         guard let entityDesctription = NSEntityDescription.entity(forEntityName: "Task", in: context) else { return }
         guard let task = NSManagedObject(entity: entityDesctription, insertInto: context) as? Task else { return }
         
         task.name = taskName
+        task.date = Date()
+        task.isDone = false
         task.taskCategory = taskCategory
         
         taskCategory.addToTask(task)
         completion(task)
-        
+    
         saveContext()
     }
     
     func deleteTask(task: Task) {
         context.delete(task as NSManagedObject)
+        saveContext()
+    }
+    
+    func completeTask(task: Task) {
+        task.isDone.toggle()
         saveContext()
     }
 }
