@@ -37,6 +37,7 @@ class TaskListViewModel: TaskListViewModelProtocol {
     
     func fetchTasks(completion: @escaping () -> Void) {
         taskList = taskCategory.task?.allObjects as! [Task]
+        //
         completion()
     }
     
