@@ -54,12 +54,6 @@ class TaskListViewModel: TaskListViewModelProtocol {
         taskList.insert(task, at: 0)
     }
     
-    func complete(at indexPath: IndexPath) {
-        let task = taskList[indexPath.row]
-        DataManager.shared.completeTask(task: task)
-        task.isDone.toggle()
-    }
-    
     func getCellViewModel(at indexPath: IndexPath) -> TaskCellViewModelProtocol {
         let task = taskList[indexPath.row]
         return TaskCellViewModel(task: task)
