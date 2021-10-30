@@ -24,16 +24,19 @@ class TaskCategoryTableViewController: UITableViewController {
         
         viewModel = TaskCategoryViewModel()
         
-        tableView.register(TaskCategoryCellTableViewCell.self, forCellReuseIdentifier: cellID)
-        tableView.dataSource = self
-        tableView.delegate = self
-        
+        setupTableView()
         setupNavigation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+    }
+    private func setupTableView() {
+        tableView.separatorStyle = .none
+        tableView.register(TaskCategoryCellTableViewCell.self, forCellReuseIdentifier: cellID)
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     private func setupNavigation() {
