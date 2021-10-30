@@ -20,7 +20,7 @@ class TaskCategoryCellViewModel: TaskCategoryCellViewModelProtocol {
     }
     
     var tasks: String {
-        "\(taskCategory.task?.count ?? 0)"
+        taskCategory.task?.count != 0 ? "\(taskCategory.task?.count ?? 0)" : ""
     }
     
     private let taskCategory: TaskCategory
