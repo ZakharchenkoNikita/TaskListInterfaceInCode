@@ -66,6 +66,10 @@ extension TaskListViewController {
 
 //MARK: TableViewDataSource
 extension TaskListViewController {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        50
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.getNumberOfRows()
     }

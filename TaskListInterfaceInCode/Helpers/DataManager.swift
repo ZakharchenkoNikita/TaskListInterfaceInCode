@@ -100,4 +100,9 @@ extension DataManager {
         context.delete(task as NSManagedObject)
         saveContext()
     }
+    
+    func complete(task: Task, status: Bool) {
+        task.isDone = status
+        saveContext()
+    }
 }
