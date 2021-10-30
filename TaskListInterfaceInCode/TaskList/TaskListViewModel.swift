@@ -36,7 +36,8 @@ class TaskListViewModel: TaskListViewModelProtocol {
     }
     
     func fetchTasks(completion: @escaping () -> Void) {
-        taskList = taskCategory.task?.allObjects as! [Task]
+        let taskList = taskCategory.task?.allObjects as! [Task]
+        sortTaskList(taskList)
         completion()
     }
     
@@ -61,5 +62,11 @@ class TaskListViewModel: TaskListViewModelProtocol {
     
     func showNewTaskViewModel() -> NewTaskViewModelProtocol? {
         NewTaskViewModel(taskCategory: taskCategory)
+    }
+    
+    private func sortTaskList(_ taskList: [Task]) {
+        self.taskList = taskList.sorted(by: {
+            $0.date?.compare($1.date ?? Date()) == .orderedDescending
+        })
     }
 }
